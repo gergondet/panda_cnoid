@@ -54,7 +54,7 @@ items:
             oldAccelSensorMode: false
         - 
           id: 4
-          name: "sim_mc.py"
+          name: "Simulation script"
           plugin: PythonSimScript
           class: PythonSimScriptItem
           data: 
@@ -62,7 +62,7 @@ items:
             delay: 0
             simulationOnly: true
             backgroundExecution: true
-            file: "${PROJECT_DIR}/sim_mc.py"
+            file: "${PROJECT_DIR}/@SIM_SCRIPT@"
         - 
           id: 5
           name: "panda"

@@ -48,7 +48,9 @@ install(FILES "${CMAKE_BINARY_DIR}/module/aliase/panda.yaml" DESTINATION "${MC_R
 
 # Configure and install a choreonoid project
 install(FILES "cnoid/panda/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
-set(PROJECT_DESTINATION "${HRPSYS_BASE_PREFIX}/share/hrpsys/samples/panda/")
+set(PROJECT_DESTINATION "${HRPSYS_BASE_PREFIX}/share/hrpsys/samples/panda")
+set(USE_UDP False)
+set(SIM_SCRIPT sim_mc.py)
 set(PROJECT_FILES
   PDcontroller.conf.choreonoid
   PDgains_sim.dat
@@ -60,5 +62,9 @@ set(PROJECT_FILES
 foreach(F ${PROJECT_FILES})
   configure_file(cnoid/panda/${F} "${CMAKE_BINARY_DIR}/cnoid/panda/${F}" @ONLY)
 endforeach()
+set(USE_UDP True)
+set(SIM_SCRIPT sim_mc_udp.py)
+configure_file(cnoid/panda/sim_mc.py "${CMAKE_BINARY_DIR}/cnoid/panda/${SIM_SCRIPT}" @ONLY)
+configure_file(cnoid/panda/sim_mc.cnoid "${CMAKE_BINARY_DIR}/cnoid/panda/sim_mc_udp.cnoid" @ONLY)
 install(DIRECTORY "${CMAKE_BINARY_DIR}/cnoid/panda/" DESTINATION "${PROJECT_DESTINATION}")
 install(PROGRAMS cnoid/panda/clear-omninames.sh DESTINATION "${PROJECT_DESTINATION}")

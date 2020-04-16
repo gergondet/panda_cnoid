@@ -18,6 +18,8 @@ if isJython():
 rtm.nsport = 2809
 rtm.nshost = "localhost"
 
+use_udp = @USE_UDP@
+
 try:
     import cnoid.Corba
     from cnoid.grxui import *
@@ -49,7 +51,7 @@ def connectComps():
 
 def createComps():
     global ms, rh, rh_svc, sh, sh_svc, tk_svc, st, kf, log, log_svc, servo
-    global ep_svc, mc, mc_svc
+    global ep_svc, mc, mc_ctrl
 
     rh = rtm.findRTC("pandaController(Robot)0")
     servo = rtm.findRTC("PDcontroller0")
@@ -68,16 +70,28 @@ def createComps():
     log = ms.create("DataLogger")
     log_svc = narrow(log.service("service0"), "DataLoggerService")
 
-    ms.load("MCControl")
-    mc = ms.create("MCControl")
+    if use_udp:
+      ms.load("MCUDPSensors")
+      mc = ms.create("MCUDPSensors")
+
+      ms.load("MCUDPControl")
+      mc_ctrl = ms.create("MCUDPControl")
+    else:
+      ms.load("MCControl")
+      mc = ms.create("MCControl")
 
 def activateComps():
-    rtm.serializeComponents([rh, kf, log, mc, sh])
+    if use_udp:
+      rtm.serializeComponents([rh, kf, log, mc_ctrl, sh, mc])
+    else:
+      rtm.serializeComponents([rh, kf, log, mc, sh])
     rh.start()
     kf.start()
     sh.start()
     log.start()
     mc.start()
+    if use_udp:
+      mc_ctrl.start()
 
 def init(hostname=socket.gethostname()):
     global ms, simulation_mode, kinematics_mode
@@ -105,12 +119,17 @@ def init(hostname=socket.gethostname()):
 
 
 def startMCControl():
-    global mc
+    global mc, mc_ctrl
     mc.setProperty("is_enabled", "1")
+    if use_udp:
+      mc_ctrl.setProperty("is_enabled", "1")
 
 def connectMCControl():
     connectPorts(rh.port("q"), mc.port("qIn"))
-    connectPorts(mc.port("qOut"), sh.port("qIn"))
+    if use_udp:
+      connectPorts(mc_ctrl.port("qOut"), sh.port("qIn"))
+    else:
+      connectPorts(mc.port("qOut"), sh.port("qIn"))
 
 
 init()
