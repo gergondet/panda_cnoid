@@ -32,4 +32,4 @@ sudo make install
 Usage
 --
 
-Edit your mc\_rtc configuration
+Edit your mc\_rtc configuration so that `MainRobot` is `panda`
