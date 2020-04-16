@@ -3,6 +3,6 @@ exec_cxt.periodic.rate: 1000000
 nStep: 1
 dt: 0.005
 ref_dt: 0.005
-model: file:///home/gergondet/devel/src/panda/panda_cnoid/model/panda/panda_arm_hand.wrl
+model: file://@MODEL_DESTINATION@/panda_arm_hand.wrl
 pdgains_sim_file_name: PDgains_sim.dat
 pdcontrol_tlimit_ratio: 1,1,1,1,1,1,1,1,1

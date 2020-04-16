@@ -69,7 +69,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/gergondet/devel/src/panda/panda_cnoid/model/panda/panda_arm_hand.wrl"
+            modelFile: "@MODEL_DESTINATION@/panda_arm_hand.wrl"
             currentBaseLink: ""
             rootPosition: [ 0, 0, 0 ]
             rootAttitude: [ 
