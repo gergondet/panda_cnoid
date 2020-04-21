@@ -1,10 +1,6 @@
 path: "@FRANKA_GAZEBO_PATH@"
 name: panda
-urdf_path: "@URDF_DESTINATION@/panda_arm_hand.urdf"
+urdf_path: "@URDF_DESTINATION@/panda_arm_foot.urdf"
 fixed: true
-grippers:
-  - name: gripper
-    joints: [panda_finger_joint1, panda_finger_joint2]
-    reverse_limits: false
 stance:
   panda_joint7: [0.78] # 45 deg

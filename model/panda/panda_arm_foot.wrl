@@ -367,79 +367,13 @@ DEF panda_link0 Humanoid {
                                           rotation -0.0 -0.0 -1.0 0.785398
                                           children [
                                             Inline {
-                                              url "panda-panda_link7-panda-panda_link7_fixed_joint_lump__panda_hand_visual_1.wrl"
+                                              url "panda-panda_link7-panda-panda_link7_fixed_joint_lump__panda_foot_visual_1.wrl"
                                             }
                                           ]
                                         }
                                       ]
                                     }
                                         
-                                    DEF panda_finger_joint1 Joint {
-                                      jointType "slide"
-                                      #jointAxis 0.707106781187 0.707106781145 -7.63199246572e-06
-                                      jointAxis 0.0 1.0 0.0
-                                      jointId 7
-                                      translation -3.05311331772e-16 -4.3890375167e-07 0.165399999999
-                                      rotation 2.34064615351e-16 2.65358979356e-06 -0.999999999996 0.785398
-                                      ulimit 0.04
-                                      llimit -0.001
-                                      uvlimit 0.3
-                                      lvlimit -0.3
-                                      climit [20.0]
-                                      children [
-                                        DEF panda_leftfinger Segment {
-                                          mass 0.1
-                                          centerOfMass 0.0 0.014564 0.022794
-                                          momentsOfInertia [3.01221e-05 0.0 0.0 0.0 2.95874e-05 0.0 0.0 0.0 6.95125e-06]
-                                          children [
-                                            Transform {
-                                              scale 1.0 1.0 1.0
-                                              translation 0.0 0.0 0.0
-                                              rotation 0 1 0 0
-                                              children [
-                                                Inline {
-                                                  url "panda-panda_leftfinger-panda-panda_leftfinger_visual.wrl"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                            
-                                      ]
-                                    }
-                                    DEF panda_finger_joint2 Joint {
-                                      jointType "slide"
-                                      #jointAxis -0.707106781187 -0.707106781145 7.63199246572e-06
-                                      jointAxis 0.0 -1.0 0.0
-                                      jointId 8
-                                      translation -3.05311331772e-16 -4.3890375167e-07 0.165399999999
-                                      rotation 2.34064615351e-16 2.65358979356e-06 -0.999999999996 0.785398
-                                      ulimit 0.04
-                                      llimit -0.001
-                                      uvlimit 0.3
-                                      lvlimit -0.3
-                                      climit [20.0]
-                                      children [
-                                        DEF panda_rightfinger Segment {
-                                          mass 0.1
-                                          centerOfMass 0.0 0.014564 0.022794
-                                          momentsOfInertia [3.01221e-05 0.0 0.0 0.0 2.95874e-05 0.0 0.0 0.0 6.95125e-06]
-                                          children [
-                                            Transform {
-                                              scale 1.0 1.0 1.0
-                                              translation 0.0 0.0 0.0
-                                              rotation -0.0 -0.0 -1.0 3.14160344686
-                                              children [
-                                                Inline {
-                                                  url "panda-panda_rightfinger-panda-panda_rightfinger_visual.wrl"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                            
-                                      ]
-                                    }
                                   ]
                                 }
                               ]
@@ -465,8 +399,6 @@ DEF panda_link0 Humanoid {
     USE panda_joint5,
     USE panda_joint6,
     USE panda_joint7,
-    USE panda_finger_joint1,
-    USE panda_finger_joint2
   ]
   
   name "panda_link0"

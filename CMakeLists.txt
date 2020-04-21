@@ -30,8 +30,8 @@ install(DIRECTORY model/panda/
   FILES_MATCHING PATTERN "*.wrl")
 
 # Generate the URDF of panda
-set(XACRO_IN "${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro")
-set(URDF_OUT "${CMAKE_BINARY_DIR}/urdf/panda_arm_hand.urdf")
+set(XACRO_IN "${CMAKE_SOURCE_DIR}/xacro/panda_arm_foot.urdf.xacro")
+set(URDF_OUT "${CMAKE_BINARY_DIR}/urdf/panda_arm_foot.urdf")
 add_custom_command(OUTPUT ${URDF_OUT}
   COMMAND ${XACRO} -i "${XACRO_IN}" -o "${URDF_OUT}")
 add_custom_target(generate_urdf ALL DEPENDS "${URDF_OUT}")
