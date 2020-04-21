@@ -1,0 +1,35 @@
+According to Pierre you need to:
+1. Create a specific xacro file similar to panda_arm_hand.urdf.xacro but instead of loading the hand, you are loading your specific tool
+2. Generate an urdf file from the xacro file (xacro -o out.urdf in.urdf.xacro)
+3. Convert the URDF to a VRML with simtrans (https://github.com/fkanehiro/simtrans)
+4. The tool will output a sample .cnoid that you can run to check that the conversion is ok (typically I had to modify the joint axis and the joint id in the generated VRML)
+5. Copy the existing panda project file and change the VRML file loaded (in .cnoid file and .conf files) and remove the gains for the finger joints in PDgains_sim.dat
+
+
+#create files 
+panda_arm_foot.urdf.xacro #links to foot.xacro
+foot.xacro that #links to foot.gazebo.xacro, food.dae and food.stl
+foot.gazebo.xacro
+food.dae or food.stl #for visual link geometry
+food.stl file #for collision
+
+#execute: 
+cd /home/ndehio/src/panda_cnoid/xacro
+xacro -o panda_arm_foot.urdf panda_arm_foot.urdf.xacro
+simtrans -i panda_arm_foot.urdf -o panda_arm_foot.wrl
+
+#modify foot-project.cnoid file
+jointPositions: [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0, 0.0 ]
+
+#execute: 
+sudo cp /home/ndehio/src/panda_cnoid/xacro/foot-project.cnoid /usr/share/hrpsys/samples/panda/foot-project.cnoid
+cd /usr/share/hrpsys/samples/panda/
+choreonoid foot-project.cnoid #-> check visual appearance
+
+#update cmake project
+...
+
+#documentation available: 
+#http://fkanehiro.github.io/simtrans/html/usage.html#convert-urdf-model-to-vrml-format
+
+
