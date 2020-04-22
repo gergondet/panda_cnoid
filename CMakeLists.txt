@@ -29,22 +29,38 @@ install(DIRECTORY model/panda/
   DESTINATION ${MODEL_DESTINATION}
   FILES_MATCHING PATTERN "*.wrl")
 
-# Generate the URDF of panda
-set(XACRO_IN "${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro")
-set(URDF_OUT "${CMAKE_BINARY_DIR}/urdf/panda_arm_hand.urdf")
-add_custom_command(OUTPUT ${URDF_OUT}
-  COMMAND ${XACRO} -i "${XACRO_IN}" -o "${URDF_OUT}")
-add_custom_target(generate_urdf ALL DEPENDS "${URDF_OUT}")
 set(URDF_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/panda_cnoid/")
-install(FILES "${URDF_OUT}" DESTINATION "${URDF_DESTINATION}")
 
-# Create and install a YAML RobotModule
-configure_file(module/panda.yaml "${CMAKE_BINARY_DIR}/module/panda.yaml")
-install(FILES "${CMAKE_BINARY_DIR}/module/panda.yaml" DESTINATION "${URDF_DESTINATION}")
+macro(GENERATE_ROBOT XACRO_IN ROBOT_IN)
+  # Generate a xacro file and the associated urdf
+  get_filename_component(XACRO_OUT "${XACRO_IN}" NAME)
+  set(XACRO_OUT "${CMAKE_BINARY_DIR}/xacro/${XACRO_OUT}")
+  configure_file("${XACRO_IN}" "${XACRO_OUT}" @ONLY)
+  get_filename_component(NAME "${XACRO_OUT}" NAME_WE)
+  set(URDF_OUT "${CMAKE_BINARY_DIR}/urdf/${NAME}.urdf")
+  set(URDF_DEPENDS "${XACRO_OUT}")
+  set(EXTRA_DEPENDS "${ARGN}")
+  foreach(EXTRA IN LISTS EXTRA_DEPENDS)
+    list(APPEND URDF_DEPENDS "${EXTRA}")
+  endforeach()
+  add_custom_command(OUTPUT "${URDF_OUT}" COMMAND ${XACRO} -i "${XACRO_OUT}" -o "${URDF_OUT}" DEPENDS ${URDF_DEPENDS})
+  add_custom_target(generate_${NAME}_urdf ALL DEPENDS ${URDF_OUT})
+  install(FILES "${URDF_OUT}" DESTINATION "${URDF_DESTINATION}")
+  # Create and install a YAML RobotModule
+  set(MODULE_IN "module/${ROBOT_IN}.yaml")
+  set(MODULE_OUT "${CMAKE_BINARY_DIR}/${MODULE_IN}")
+  configure_file(${MODULE_IN} "${MODULE_OUT}")
+  install(FILES "${MODULE_OUT}" DESTINATION "${URDF_DESTINATION}")
+  # Create and install an aliase
+  set(ALIASE_IN "module/aliase/${ROBOT_IN}.yaml")
+  set(ALIASE_OUT "${CMAKE_BINARY_DIR}/${ALIASE_IN}")
+  configure_file(${ALIASE_IN} "${ALIASE_OUT}")
+  install(FILES "${ALIASE_OUT}" DESTINATION "${MC_ROBOTS_ALIASES_DIRECTORY}")
+endmacro()
 
-# Create and install an aliase
-configure_file(module/aliase/panda.yaml "${CMAKE_BINARY_DIR}/module/aliase/panda.yaml")
-install(FILES "${CMAKE_BINARY_DIR}/module/aliase/panda.yaml" DESTINATION "${MC_ROBOTS_ALIASES_DIRECTORY}")
+GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda")
+configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
+GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DIR}/xacro/foot.xacro")
 
 # Configure and install a choreonoid project
 install(FILES "cnoid/panda/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")

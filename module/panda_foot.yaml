@@ -1,0 +1,6 @@
+path: "@FRANKA_GAZEBO_PATH@"
+name: panda_foot
+urdf_path: "@URDF_DESTINATION@/panda_arm_foot.urdf"
+fixed: true
+stance:
+  panda_joint7: [0.78] # 45 deg

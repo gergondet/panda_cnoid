@@ -1,0 +1,1 @@
+panda_foot: [json, "@URDF_DESTINATION@/panda_foot.yaml"]
