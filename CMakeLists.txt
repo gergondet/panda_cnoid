@@ -62,25 +62,34 @@ GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda")
 configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
 GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DIR}/xacro/foot.xacro")
 
-# Configure and install a choreonoid project
-install(FILES "cnoid/panda/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
-set(PROJECT_DESTINATION "${HRPSYS_BASE_PREFIX}/share/hrpsys/samples/panda")
-set(USE_UDP False)
-set(SIM_SCRIPT sim_mc.py)
-set(PROJECT_FILES
-  PDcontroller.conf.choreonoid
-  PDgains_sim.dat
-  robot.conf
-  rtc.conf.choreonoid
-  sim_mc.cnoid
-  sim_mc.py
-)
-foreach(F ${PROJECT_FILES})
-  configure_file(cnoid/panda/${F} "${CMAKE_BINARY_DIR}/cnoid/panda/${F}" @ONLY)
-endforeach()
-set(USE_UDP True)
-set(SIM_SCRIPT sim_mc_udp.py)
-configure_file(cnoid/panda/sim_mc.py "${CMAKE_BINARY_DIR}/cnoid/panda/${SIM_SCRIPT}" @ONLY)
-configure_file(cnoid/panda/sim_mc.cnoid "${CMAKE_BINARY_DIR}/cnoid/panda/sim_mc_udp.cnoid" @ONLY)
-install(DIRECTORY "${CMAKE_BINARY_DIR}/cnoid/panda/" DESTINATION "${PROJECT_DESTINATION}")
-install(PROGRAMS cnoid/panda/clear-omninames.sh DESTINATION "${PROJECT_DESTINATION}")
+install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
+
+macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
+  set(PROJECT_DESTINATION "${HRPSYS_BASE_PREFIX}/share/hrpsys/samples/${PROJECT_FOLDER}")
+  set(MODEL_OUT "${MODEL_DESTINATION}/${WRL_NAME}.wrl")
+  file(READ cnoid/${PROJECT_FOLDER}/joint_positions.cnoid JOINT_POSITIONS)
+  string(STRIP "${JOINT_POSITIONS}" JOINT_POSITIONS)
+  set(USE_UDP False)
+  set(SIM_SCRIPT sim_mc.py)
+  set(PROJECT_FILES
+    cnoid/common/clear-omninames.sh
+    cnoid/common/robot.conf
+    cnoid/common/rtc.conf.choreonoid
+    cnoid/common/sim_mc.cnoid
+    cnoid/common/sim_mc.py
+    cnoid/${PROJECT_FOLDER}/PDcontroller.conf.choreonoid
+    cnoid/${PROJECT_FOLDER}/PDgains_sim.dat
+  )
+  foreach(F ${PROJECT_FILES})
+    get_filename_component(F_NAME "${F}" NAME)
+    configure_file(${F} "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/${F_NAME}" @ONLY)
+  endforeach()
+  set(USE_UDP True)
+  set(SIM_SCRIPT sim_mc_udp.py)
+  configure_file(cnoid/common/sim_mc.py "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/${SIM_SCRIPT}" @ONLY)
+  configure_file(cnoid/common/sim_mc.cnoid "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/sim_mc_udp.cnoid" @ONLY)
+  install(DIRECTORY "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/" DESTINATION "${PROJECT_DESTINATION}")
+  install(PROGRAMS cnoid/common/clear-omninames.sh DESTINATION "${PROJECT_DESTINATION}")
+endmacro()
+
+GENERATE_CNOID_PROJECT(panda panda_arm_hand)
