@@ -93,3 +93,4 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
 endmacro()
 
 GENERATE_CNOID_PROJECT(panda panda_arm_hand)
+GENERATE_CNOID_PROJECT(panda_foot panda_arm_foot)
