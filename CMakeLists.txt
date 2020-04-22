@@ -30,6 +30,7 @@ install(DIRECTORY model/panda/
   FILES_MATCHING PATTERN "*.wrl")
 
 set(URDF_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/panda_cnoid/")
+set(MESHES_DESTINATION "${URDF_DESTINATION}/meshes/")
 
 macro(GENERATE_ROBOT XACRO_IN ROBOT_IN)
   # Generate a xacro file and the associated urdf
@@ -58,8 +59,11 @@ macro(GENERATE_ROBOT XACRO_IN ROBOT_IN)
   install(FILES "${ALIASE_OUT}" DESTINATION "${MC_ROBOTS_ALIASES_DIRECTORY}")
 endmacro()
 
+# Default panda robot
 GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda")
+# panda with "foot" end-effector
 configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
+install(FILES xacro/meshes/foot.stl DESTINATION "${MESHES_DESTINATION}")
 GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DIR}/xacro/foot.xacro")
 
 install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")

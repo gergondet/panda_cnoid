@@ -23,7 +23,7 @@
       <visual>
         <origin xyz="${xyz}" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://@CMAKE_SOURCE_DIR@/xacro/meshes/foot.stl"/>
+          <mesh filename="file://@MESHES_DESTINATION@/foot.stl"/>
         </geometry>
         <material name="">
           <color rgba="1 1 1 1"/>
@@ -32,7 +32,7 @@
       <collision>
         <origin xyz="${xyz}" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://@CMAKE_SOURCE_DIR@/xacro/meshes/foot.stl"/>
+          <mesh filename="file://@MESHES_DESTINATION@/foot.stl"/>
         </geometry>
       </collision>
     </link>
