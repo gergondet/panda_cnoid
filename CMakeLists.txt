@@ -9,13 +9,15 @@ project(panda_cnoid)
 
 find_package(mc_rtc REQUIRED)
 
-find_package(choreonoid REQUIRED)
+find_package(choreonoid QUIET)
 
 find_description_package(franka_gazebo REQUIRED)
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(OPENHRP REQUIRED openhrp3.1)
-pkg_check_modules(HRPSYS_BASE REQUIRED hrpsys-base)
+if(choreonoid_FOUND)
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(OPENHRP REQUIRED openhrp3.1)
+  pkg_check_modules(HRPSYS_BASE REQUIRED hrpsys-base)
+endif()
 
 find_program(XACRO xacro)
 if("${XACRO}" STREQUAL "XACRO-NOTFOUND")
@@ -24,10 +26,12 @@ endif()
 
 set(MODEL_DESTINATION "${OPENHRP_PREFIX}/share/OpenHRP-3.1/robot/panda")
 
-# Install the VRML model
-install(DIRECTORY model/panda/
-  DESTINATION ${MODEL_DESTINATION}
-  FILES_MATCHING PATTERN "*.wrl")
+if(choreonoid_FOUND)
+  # Install the VRML model
+  install(DIRECTORY model/panda/
+    DESTINATION ${MODEL_DESTINATION}
+    FILES_MATCHING PATTERN "*.wrl")
+endif()
 
 set(URDF_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/panda_cnoid/")
 set(MESHES_DESTINATION "${URDF_DESTINATION}/meshes/")
@@ -66,7 +70,9 @@ configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
 install(FILES xacro/meshes/foot.stl DESTINATION "${MESHES_DESTINATION}")
 GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DIR}/xacro/foot.xacro")
 
-install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
+if(choreonoid_FOUND)
+  install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
+endif()
 
 macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(PROJECT_DESTINATION "${HRPSYS_BASE_PREFIX}/share/hrpsys/samples/${PROJECT_FOLDER}")
@@ -96,5 +102,7 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   install(PROGRAMS cnoid/common/clear-omninames.sh DESTINATION "${PROJECT_DESTINATION}")
 endmacro()
 
-GENERATE_CNOID_PROJECT(panda panda_arm_hand)
-GENERATE_CNOID_PROJECT(panda_foot panda_arm_foot)
+if(choreonoid_FOUND)
+  GENERATE_CNOID_PROJECT(panda panda_arm_hand)
+  GENERATE_CNOID_PROJECT(panda_foot panda_arm_foot)
+endif()
