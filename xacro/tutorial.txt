@@ -18,16 +18,13 @@ cd /home/ndehio/src/panda_cnoid/xacro
 xacro -o panda_arm_foot.urdf panda_arm_foot.urdf.xacro
 simtrans -i panda_arm_foot.urdf -o panda_arm_foot.wrl
 
-#modify foot-project.cnoid file
+#modify panda_arm_foot-project.cnoid file
 jointPositions: [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0, 0.0 ]
 
 #execute: 
-sudo cp /home/ndehio/src/panda_cnoid/xacro/foot-project.cnoid /usr/share/hrpsys/samples/panda/foot-project.cnoid
+sudo cp /home/ndehio/src/panda_cnoid/xacro/panda_arm_foot-project.cnoid /usr/share/hrpsys/samples/panda/panda_arm_foot-project.cnoid
 cd /usr/share/hrpsys/samples/panda/
-choreonoid foot-project.cnoid #-> check visual appearance
-
-#update cmake project
-...
+choreonoid panda_arm_foot-project.cnoid #-> check visual appearance
 
 #documentation available: 
 #http://fkanehiro.github.io/simtrans/html/usage.html#convert-urdf-model-to-vrml-format
