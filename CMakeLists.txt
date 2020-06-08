@@ -34,6 +34,7 @@ if(choreonoid_FOUND)
 endif()
 
 set(URDF_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/panda_cnoid/")
+set(CONVEX_DESTINATION "${URDF_DESTINATION}/convex")
 set(MESHES_DESTINATION "${URDF_DESTINATION}/meshes/")
 
 macro(GENERATE_ROBOT XACRO_IN ROBOT_IN)
@@ -69,6 +70,10 @@ GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda")
 configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
 install(FILES xacro/meshes/foot.stl DESTINATION "${MESHES_DESTINATION}")
 GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DIR}/xacro/foot.xacro")
+
+# Install convex
+
+install(DIRECTORY convex DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*-ch.txt")
 
 if(choreonoid_FOUND)
   install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
