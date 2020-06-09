@@ -75,6 +75,10 @@ GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DI
 
 install(DIRECTORY convex DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*-ch.txt")
 
+# Install rsdf
+
+install(DIRECTORY rsdf DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*.rsdf")
+
 if(choreonoid_FOUND)
   install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
 endif()
