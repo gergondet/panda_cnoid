@@ -44,3 +44,11 @@ minimalSelfCollisions:
     iDist: 0.02
     sDist: 0.005
     damping: 0
+ForceSensor:
+  name: wristsensor
+  parentBody: panda_link7
+  X_p_f:
+    rotation: [1.0, 0.0, 0.0,
+             0.0, 1.0, 0.0,
+             0.0, 0.0, 1.0]
+    translation: [0.0, 0.0, 0.0]

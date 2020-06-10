@@ -59,6 +59,20 @@ PROTO Segment [
   }
 }
 
+PROTO ForceSensor [  
+exposedField SFVec3f maxForce -1 -1 -1
+  exposedField SFVec3f maxTorque -1 -1 -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+translation IS translation
+    rotation IS rotation
+  }
+}
+
 PROTO Surface [
  field   SFVec3f bboxCenter 0 0 0
  field   SFVec3f bboxSize   -1 -1 -1
@@ -346,6 +360,17 @@ DEF panda_link0 Humanoid {
                                   lvlimit -2.61
                                   climit [12.0]
                                   children [
+                                    DEF wristsensor ForceSensor {# taken from R_FOOT Joint in HRP4LIRMM_main.wrl 
+                                      translation 0 0 -0.093
+                                      rotation 1 0 0 0
+                                      sensorId 0
+                                    }
+                                    #DEF wristsensor ForceSensor {# taken from R_WRIST_R Joint in HRP4LIRMM_main.wrl 
+                                      #translation 0 0 -0.04435
+                                      #rotation -0.707109 0.7071045 0.0 3.1415908
+                                      #sensorId 0
+                                    #}
+
                                     DEF panda_link7 Segment {
                                       mass 1.27
                                       centerOfMass 0.005284 0.00521 0.105019
