@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="foot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hand">
   <xacro:macro name="foot" params="connected_to:='' ns:='' rpy:='0 0 0' xyz:='0 0 0' ">
     <xacro:unless value="${connected_to == ''}">
       <joint name="${ns}_foot_joint" type="fixed">
@@ -11,8 +11,7 @@
 
     <xacro:arg name="gazebo" default="true"/>
     <xacro:if value="$(arg gazebo)">
-      <!-- Gazebo Tags -->
-      <xacro:include filename="$(find franka_gazebo)/robots/../../../../panda_cnoid/xacro/foot.gazebo.xacro"/>
+      <gazebo reference="${ns}_foot"/>
     </xacro:if>
 
     <link name="${ns}_foot">
@@ -24,8 +23,7 @@
       <visual>
         <origin xyz="${xyz}" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://franka_gazebo/../../../panda_cnoid/xacro/foot.stl"/>
-          <!-- <mesh filename="file://@CMAKE_SOURCE_DIR@/xacro/foot.stl"/> -->
+          <mesh filename="file://@MESHES_DESTINATION@/foot.stl"/>
         </geometry>
         <material name="">
           <color rgba="1 1 1 1"/>
@@ -34,11 +32,10 @@
       <collision>
         <origin xyz="${xyz}" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://franka_gazebo/../../../panda_cnoid/xacro/foot.stl"/>
-          <!-- <mesh filename="file://@CMAKE_SOURCE_DIR@/xacro/foot.stl"/> -->
+          <mesh filename="file://@MESHES_DESTINATION@/foot.stl"/>
         </geometry>
       </collision>
     </link>
-
   </xacro:macro>
 </robot>
+
