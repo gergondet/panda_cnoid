@@ -17,6 +17,7 @@ convexHulls:
   panda_link7: [panda_link7, "@URDF_DESTINATION@/convex/panda/panda_link7-ch.txt"]
   panda_hand: [panda_hand, "@URDF_DESTINATION@/convex/panda/panda_hand-ch.txt"]
 stance:
+  panda_joint6: [0.78] # 45 deg
   panda_joint7: [0.78] # 45 deg
 minimalSelfCollisions:
   - body1: panda_link0
@@ -44,11 +45,9 @@ minimalSelfCollisions:
     iDist: 0.02
     sDist: 0.005
     damping: 0
-ForceSensor:
-  name: wristsensor
-  parentBody: panda_link7
-  X_p_f:
-    rotation: [1.0, 0.0, 0.0,
-             0.0, 1.0, 0.0,
-             0.0, 0.0, 1.0]
-    translation: [0.0, 0.0, 0.0]
+forceSensors:
+  - name: LeftHandForceSensor
+    parentBody: panda_link7
+    X_p_f:
+      rotation: [0.0, 0.0, 0.0]
+      translation: [0.0, 0.0, 0.0]

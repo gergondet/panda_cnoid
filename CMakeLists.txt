@@ -90,6 +90,7 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   string(STRIP "${JOINT_POSITIONS}" JOINT_POSITIONS)
   set(USE_UDP False)
   set(SIM_SCRIPT sim_mc.py)
+  set(ROBOT_NAME "${PROJECT_FOLDER}")
   set(PROJECT_FILES
     cnoid/common/clear-omninames.sh
     cnoid/common/robot.conf

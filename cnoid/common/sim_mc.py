@@ -89,8 +89,10 @@ def activateComps():
     kf.start()
     sh.start()
     log.start()
+    mc.setProperty("robot", "@ROBOT_NAME@")
     mc.start()
     if use_udp:
+      mc_ctrl.setProperty("robot", "@ROBOT_NAME@")
       mc_ctrl.start()
 
 def init(hostname=socket.gethostname()):
@@ -126,8 +128,7 @@ def startMCControl():
 
 def connectMCControl():
     connectPorts(rh.port("q"), mc.port("qIn"))
-    #connectPorts(rh.port("wristsensor"), mc.port("WristForceSensor"))
-    connectPorts(rh.port("wristsensor"), mc.port("wristsensor"))
+    connectPorts(rh.port("wristsensor"), mc.port("lhsensor"))
     if use_udp:
       connectPorts(mc_ctrl.port("qOut"), sh.port("qIn"))
     else:
