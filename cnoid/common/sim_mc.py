@@ -128,7 +128,7 @@ def startMCControl():
 
 def connectMCControl():
     connectPorts(rh.port("q"), mc.port("qIn"))
-    connectPorts(rh.port("wristsensor"), mc.port("lhsensor"))
+    connectPorts(rh.port("wristsensor"), mc.port("@SENSOR_PORT@"))
     if use_udp:
       connectPorts(mc_ctrl.port("qOut"), sh.port("qIn"))
     else:

@@ -91,6 +91,7 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(USE_UDP False)
   set(SIM_SCRIPT sim_mc.py)
   set(ROBOT_NAME "${PROJECT_FOLDER}")
+  set(SENSOR_PORT "LeftHandForceSensor")
   set(PROJECT_FILES
     cnoid/common/clear-omninames.sh
     cnoid/common/robot.conf
@@ -106,6 +107,7 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   endforeach()
   set(USE_UDP True)
   set(SIM_SCRIPT sim_mc_udp.py)
+  set(SENSOR_PORT "lhsensor")
   configure_file(cnoid/common/sim_mc.py "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/${SIM_SCRIPT}" @ONLY)
   configure_file(cnoid/common/sim_mc.cnoid "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/sim_mc_udp.cnoid" @ONLY)
   install(DIRECTORY "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/" DESTINATION "${PROJECT_DESTINATION}")
