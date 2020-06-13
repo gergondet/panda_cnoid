@@ -1,0 +1,1 @@
+panda_notool: [json, "@URDF_DESTINATION@/panda_notool.yaml"]

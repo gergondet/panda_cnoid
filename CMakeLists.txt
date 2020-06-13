@@ -66,6 +66,8 @@ endmacro()
 
 # Default panda robot
 GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda")
+# Default panda robot with "notool" end-effector
+GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm.urdf.xacro" "panda_notool")
 # panda with "foot" end-effector
 configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
 install(FILES xacro/meshes/foot.stl DESTINATION "${MESHES_DESTINATION}")
@@ -116,5 +118,6 @@ endmacro()
 
 if(choreonoid_FOUND)
   GENERATE_CNOID_PROJECT(panda panda_arm_hand)
+  GENERATE_CNOID_PROJECT(panda_notool panda_arm_notool)
   GENERATE_CNOID_PROJECT(panda_foot panda_arm_foot)
 endif()
