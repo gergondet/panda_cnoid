@@ -31,6 +31,72 @@ minimalSelfCollisions:
     iDist: 0.02
     sDist: 0.005
     damping: 0
+  - body1: panda_link3
+    body2: panda_link5
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link0
+    body2: panda_link6
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link1
+    body2: panda_link6
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link2
+    body2: panda_link6
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link3
+    body2: panda_link6
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link0
+    body2: panda_link7
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link1
+    body2: panda_link7
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link2
+    body2: panda_link7
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link3
+    body2: panda_link7
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link0
+    body2: panda_foot
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link1
+    body2: panda_foot
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link2
+    body2: panda_foot
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link3
+    body2: panda_foot
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+#TODO do we need the last two self-collisions?
   - body1: panda_link7
     body2: panda_link5
     iDist: 0.02
