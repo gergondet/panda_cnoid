@@ -1,0 +1,1 @@
+panda_default: [json, "@URDF_DESTINATION@/panda_default.yaml"]
