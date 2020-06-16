@@ -1,19 +1,19 @@
 path: "@URDF_DESTINATION@"
-name: panda_notool
+name: panda_default
 urdf_path: "@URDF_DESTINATION@/panda_arm.urdf"
 fixed: true
 stance:
   panda_joint6: [0.78] # 45 deg
   panda_joint7: [0.78] # 45 deg
 convexHulls:
-  panda_link0: [panda_link0, "@URDF_DESTINATION@/convex/panda/panda_link0-ch.txt"]
-  panda_link1: [panda_link1, "@URDF_DESTINATION@/convex/panda/panda_link1-ch.txt"]
-  panda_link2: [panda_link2, "@URDF_DESTINATION@/convex/panda/panda_link2-ch.txt"]
-  panda_link3: [panda_link3, "@URDF_DESTINATION@/convex/panda/panda_link3-ch.txt"]
-  panda_link4: [panda_link4, "@URDF_DESTINATION@/convex/panda/panda_link4-ch.txt"]
-  panda_link5: [panda_link5, "@URDF_DESTINATION@/convex/panda/panda_link5-ch.txt"]
-  panda_link6: [panda_link6, "@URDF_DESTINATION@/convex/panda/panda_link6-ch.txt"]
-  panda_link7: [panda_link7, "@URDF_DESTINATION@/convex/panda/panda_link7-ch.txt"]
+  panda_link0: [panda_link0, "@URDF_DESTINATION@/convex/panda_default/panda_link0-ch.txt"]
+  panda_link1: [panda_link1, "@URDF_DESTINATION@/convex/panda_default/panda_link1-ch.txt"]
+  panda_link2: [panda_link2, "@URDF_DESTINATION@/convex/panda_default/panda_link2-ch.txt"]
+  panda_link3: [panda_link3, "@URDF_DESTINATION@/convex/panda_default/panda_link3-ch.txt"]
+  panda_link4: [panda_link4, "@URDF_DESTINATION@/convex/panda_default/panda_link4-ch.txt"]
+  panda_link5: [panda_link5, "@URDF_DESTINATION@/convex/panda_default/panda_link5-ch.txt"]
+  panda_link6: [panda_link6, "@URDF_DESTINATION@/convex/panda_default/panda_link6-ch.txt"]
+  panda_link7: [panda_link7, "@URDF_DESTINATION@/convex/panda_default/panda_link7-ch.txt"]
 minimalSelfCollisions:
   - body1: panda_link0
     body2: panda_link5

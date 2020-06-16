@@ -87,9 +87,9 @@ You can check that your robot is displayed correctly by running `choreonoid pand
 First copy `cnoid/panda_foot` into `cnoid/panda_myvariant`. If you robot does not have extra joints that's probably enough.
 
 If needed, here are the three files:
-- `cnoid/panda/joint_positions.cnoid`: the initial joint configuration for your robot; *DO NOT CHANGE THE INDENT IN THIS FILE*
-- `cnoid/panda/PDcontroller.conf.choreonoid`: configuration file for the PDcontroller component, you only need to edit `pdcontrol_tlimitratio` to match your number of joints (including mimics)
-- `cnoid/panda/PDgains_sim.dat`: PD gains for the PDcontroller component; there should be one entry per joint
+- `cnoid/panda_default/joint_positions.cnoid`: the initial joint configuration for your robot; *DO NOT CHANGE THE INDENT IN THIS FILE*
+- `cnoid/panda_default/PDcontroller.conf.choreonoid`: configuration file for the PDcontroller component, you only need to edit `pdcontrol_tlimitratio` to match your number of joints (including mimics)
+- `cnoid/panda_default/PDgains_sim.dat`: PD gains for the PDcontroller component; there should be one entry per joint
 
 Once these files are correct, you can append the following to `CMakeLists.txt`:
 

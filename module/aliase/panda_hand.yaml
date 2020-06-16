@@ -1,0 +1,1 @@
+panda_hand: [json, "@URDF_DESTINATION@/panda_hand.yaml"]
