@@ -100,7 +100,7 @@ items:
                 configurationMode: "Use Configuration File"
                 autoConnect: true
                 instanceName: "pandaController(Robot)0"
-                bodyPeriodicRate: 0.005
+                bodyPeriodicRate: 0.001
                 baseDirectory: "RTC directory"
 views: 
   - 

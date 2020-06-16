@@ -1,6 +1,6 @@
 path: "@URDF_DESTINATION@"
-name: panda_foot
-urdf_path: "@URDF_DESTINATION@/panda_arm_foot.urdf"
+name: panda_notool
+urdf_path: "@URDF_DESTINATION@/panda_arm.urdf"
 fixed: true
 stance:
   panda_joint6: [0.78] # 45 deg
@@ -14,7 +14,6 @@ convexHulls:
   panda_link5: [panda_link5, "@URDF_DESTINATION@/convex/panda/panda_link5-ch.txt"]
   panda_link6: [panda_link6, "@URDF_DESTINATION@/convex/panda/panda_link6-ch.txt"]
   panda_link7: [panda_link7, "@URDF_DESTINATION@/convex/panda/panda_link7-ch.txt"]
-  panda_foot: [panda_foot, "@URDF_DESTINATION@/convex/panda_foot/panda_foot-ch.txt"]
 minimalSelfCollisions:
   - body1: panda_link0
     body2: panda_link5
@@ -76,40 +75,15 @@ minimalSelfCollisions:
     iDist: 0.02
     sDist: 0.005
     damping: 0
-  - body1: panda_link0
-    body2: panda_foot
-    iDist: 0.02
-    sDist: 0.005
-    damping: 0
-  - body1: panda_link1
-    body2: panda_foot
-    iDist: 0.02
-    sDist: 0.005
-    damping: 0
-  - body1: panda_link2
-    body2: panda_foot
-    iDist: 0.02
-    sDist: 0.005
-    damping: 0
-  - body1: panda_link3
-    body2: panda_foot
-    iDist: 0.02
-    sDist: 0.005
-    damping: 0
-#TODO do we need the last two self-collisions?
+#TODO do we need the last self-collision?
   - body1: panda_link7
-    body2: panda_link5
-    iDist: 0.02
-    sDist: 0.005
-    damping: 0
-  - body1: panda_foot
     body2: panda_link5
     iDist: 0.02
     sDist: 0.005
     damping: 0
 forceSensors:
   - name: LeftHandForceSensor
-    parentBody: panda_foot
+    parentBody: panda_link8
     X_p_f:
       rotation: [0.0, 0.0, 0.0]
       translation: [0.0, 0.0, 0.0]
