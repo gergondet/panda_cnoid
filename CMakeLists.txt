@@ -74,6 +74,9 @@ install(FILES xacro/meshes/foot.stl DESTINATION "${MESHES_DESTINATION}")
 GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DIR}/xacro/foot.xacro")
 # panda robot with a suction cup "pump" as end-effector
 # GENERATE_ROBOT("..." "panda_pump") 
+# two panda robots without any end-effector
+configure_file("xacro/panda_armB.xacro" "${CMAKE_BINARY_DIR}/xacro/panda_armB.xacro" @ONLY)
+GENERATE_ROBOT("xacro/doublepanda_arm_default.urdf.xacro" "doublepanda_default" "${CMAKE_BINARY_DIR}/xacro/panda_armB.xacro")
 
 # Install convex
 
@@ -123,4 +126,5 @@ if(choreonoid_FOUND)
   GENERATE_CNOID_PROJECT(panda_hand panda_arm_hand)
   GENERATE_CNOID_PROJECT(panda_foot panda_arm_foot)
   #GENERATE_CNOID_PROJECT(panda_pump panda_arm_pump)
+  GENERATE_CNOID_PROJECT(doublepanda_default doublepanda_arm_default)
 endif()

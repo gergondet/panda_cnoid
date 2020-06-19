@@ -1,0 +1,104 @@
+path: "@URDF_DESTINATION@"
+name: panda_default
+urdf_path: "@URDF_DESTINATION@/panda_arm.urdf"
+fixed: true
+stance:
+  panda_joint6: [0.78] # 45 deg
+  panda_joint7: [0.78] # 45 deg
+  panda_jointB6: [0.78] # 45 deg
+  panda_jointB7: [0.78] # 45 deg
+convexHulls:
+  panda_link0: [panda_link0, "@URDF_DESTINATION@/convex/panda_default/panda_link0-ch.txt"]
+  panda_link1: [panda_link1, "@URDF_DESTINATION@/convex/panda_default/panda_link1-ch.txt"]
+  panda_link2: [panda_link2, "@URDF_DESTINATION@/convex/panda_default/panda_link2-ch.txt"]
+  panda_link3: [panda_link3, "@URDF_DESTINATION@/convex/panda_default/panda_link3-ch.txt"]
+  panda_link4: [panda_link4, "@URDF_DESTINATION@/convex/panda_default/panda_link4-ch.txt"]
+  panda_link5: [panda_link5, "@URDF_DESTINATION@/convex/panda_default/panda_link5-ch.txt"]
+  panda_link6: [panda_link6, "@URDF_DESTINATION@/convex/panda_default/panda_link6-ch.txt"]
+  panda_link7: [panda_link7, "@URDF_DESTINATION@/convex/panda_default/panda_link7-ch.txt"]
+  panda_linkB0: [panda_linkB0, "@URDF_DESTINATION@/convex/panda_default/panda_link0-ch.txt"]
+  panda_linkB1: [panda_linkB1, "@URDF_DESTINATION@/convex/panda_default/panda_link1-ch.txt"]
+  panda_linkB2: [panda_linkB2, "@URDF_DESTINATION@/convex/panda_default/panda_link2-ch.txt"]
+  panda_linkB3: [panda_linkB3, "@URDF_DESTINATION@/convex/panda_default/panda_link3-ch.txt"]
+  panda_linkB4: [panda_linkB4, "@URDF_DESTINATION@/convex/panda_default/panda_link4-ch.txt"]
+  panda_linkB5: [panda_linkB5, "@URDF_DESTINATION@/convex/panda_default/panda_link5-ch.txt"]
+  panda_linkB6: [panda_linkB6, "@URDF_DESTINATION@/convex/panda_default/panda_link6-ch.txt"]
+  panda_linkB7: [panda_linkB7, "@URDF_DESTINATION@/convex/panda_default/panda_link7-ch.txt"]
+minimalSelfCollisions:
+  - body1: panda_link0
+    body2: panda_link5
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link1
+    body2: panda_link5
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link2
+    body2: panda_link5
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link3
+    body2: panda_link5
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link0
+    body2: panda_link6
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link1
+    body2: panda_link6
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link2
+    body2: panda_link6
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link3
+    body2: panda_link6
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link0
+    body2: panda_link7
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link1
+    body2: panda_link7
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link2
+    body2: panda_link7
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+  - body1: panda_link3
+    body2: panda_link7
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+#TODO do we need the last self-collision?
+  - body1: panda_link7
+    body2: panda_link5
+    iDist: 0.02
+    sDist: 0.005
+    damping: 0
+forceSensors:
+  - name: LeftHandForceSensor
+    parentBody: panda_link8
+    X_p_f:
+      rotation: [0.0, 0.0, 0.0]
+      translation: [0.0, 0.0, 0.0]
+  - name: RightHandForceSensor
+    parentBody: panda_linkB8
+    X_p_f:
+      rotation: [0.0, 0.0, 0.0]
+      translation: [0.0, 0.0, 0.0]
