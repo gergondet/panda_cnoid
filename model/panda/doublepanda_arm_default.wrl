@@ -603,7 +603,7 @@ DEF main_link Humanoid {
                                     DEF wristsensorB ForceSensor {# taken from R_FOOT Joint in HRP4LIRMM_main.wrl 
                                       translation 0 0 -0.093
                                       rotation 1 0 0 0
-                                      sensorId 0
+                                      sensorId 1
                                     }
                                     #DEF wristsensorB ForceSensor {# taken from R_WRIST_R Joint in HRP4LIRMM_main.wrl 
                                       #translation 0 0 -0.04435

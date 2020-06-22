@@ -81,7 +81,7 @@ configure_file("xacro/pandaA_arm.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaA_arm.xa
 configure_file("xacro/pandaA_arm.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaA_arm.gazebo.xacro" @ONLY)
 configure_file("xacro/pandaB_arm.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.xacro" @ONLY)
 configure_file("xacro/pandaB_arm.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.gazebo.xacro" @ONLY)
-GENERATE_ROBOT("xacro/doublepanda_arm_default.urdf.xacro" "doublepanda_default" "${CMAKE_BINARY_DIR}/xacro/panda_armB.xacro")
+GENERATE_ROBOT("xacro/doublepanda_arm_default.urdf.xacro" "doublepanda_default" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.xacro")
 
 # Install convex
 
