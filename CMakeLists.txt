@@ -91,12 +91,6 @@ install(DIRECTORY convex DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTER
 
 install(DIRECTORY rsdf DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*.rsdf")
 
-if(choreonoid_FOUND) #TODO we need Virtual-panda-RTC for single robot and multi-robot
-  #install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
-  #install(FILES "cnoid/panda_default/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
-  install(FILES "cnoid/doublepanda_default/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
-endif()
-
 macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(PROJECT_DESTINATION "${HRPSYS_BASE_PREFIX}/share/hrpsys/samples/${PROJECT_FOLDER}")
   set(MODEL_OUT "${MODEL_DESTINATION}/${WRL_NAME}.wrl")
@@ -107,6 +101,8 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(ROBOT_NAME "${PROJECT_FOLDER}")
   set(SENSOR_PORT_A "LeftHandForceSensor")
   set(SENSOR_PORT_B "RightHandForceSensor")
+  set(CONF_FILE_NAME "Virtual-${PROJECT_FOLDER}-RTC.conf")
+  install(FILES "cnoid/${PROJECT_FOLDER}/Virtual-${PROJECT_FOLDER}-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
   set(PROJECT_FILES
     cnoid/common/clear-omninames.sh
     cnoid/common/robot.conf
