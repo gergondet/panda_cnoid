@@ -375,6 +375,7 @@ DEF main_link Humanoid {
                                       #rotation -0.707109 0.7071045 0.0 3.1415908
                                       #sensorId 0
                                     #}
+
                                     DEF panda_linkA7 Segment {
                                       mass 1.27
                                       centerOfMass 0.005284 0.00521 0.105019

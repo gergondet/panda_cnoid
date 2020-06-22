@@ -3,12 +3,14 @@ name: doublepanda_default
 urdf_path: "@URDF_DESTINATION@/doublepanda_arm_default.urdf"
 fixed: true
 stance:
+  panda_jointA4: [-0.78] # -45 deg
   panda_jointA6: [0.78] # 45 deg
   panda_jointA7: [0.78] # 45 deg
+  panda_jointB4: [-0.78] # -45 deg
   panda_jointB6: [0.78] # 45 deg
   panda_jointB7: [0.78] # 45 deg
 convexHulls:
-  main_link: [main_link, "@URDF_DESTINATION@/convex/panda_default/panda_link0-ch.txt"]
+  panda_linkA0: [panda_linkA0, "@URDF_DESTINATION@/convex/panda_default/panda_link0-ch.txt"]
   panda_linkA1: [panda_linkA1, "@URDF_DESTINATION@/convex/panda_default/panda_link1-ch.txt"]
   panda_linkA2: [panda_linkA2, "@URDF_DESTINATION@/convex/panda_default/panda_link2-ch.txt"]
   panda_linkA3: [panda_linkA3, "@URDF_DESTINATION@/convex/panda_default/panda_link3-ch.txt"]
@@ -26,7 +28,7 @@ convexHulls:
   panda_linkB7: [panda_linkB7, "@URDF_DESTINATION@/convex/panda_default/panda_link7-ch.txt"]
 minimalSelfCollisions:
 # First Panda
-  - body1: main_link
+  - body1: panda_linkA0
     body2: panda_linkA5
     iDist: 0.02
     sDist: 0.005
@@ -46,7 +48,7 @@ minimalSelfCollisions:
     iDist: 0.02
     sDist: 0.005
     damping: 0
-  - body1: main_link
+  - body1: panda_linkA0
     body2: panda_linkA6
     iDist: 0.02
     sDist: 0.005
@@ -66,7 +68,7 @@ minimalSelfCollisions:
     iDist: 0.02
     sDist: 0.005
     damping: 0
-  - body1: main_link
+  - body1: panda_linkA0
     body2: panda_linkA7
     iDist: 0.02
     sDist: 0.005

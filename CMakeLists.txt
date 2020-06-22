@@ -64,24 +64,27 @@ macro(GENERATE_ROBOT XACRO_IN ROBOT_IN)
   install(FILES "${ALIASE_OUT}" DESTINATION "${MC_ROBOTS_ALIASES_DIRECTORY}")
 endmacro()
 
-# panda robot without any end-effector
-GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm.urdf.xacro" "panda_default")
-# panda robot with a two-finger gripper "hand" as end-effector
-GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda_hand")
-# panda robot with a flat "foot" as end-effector
-configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
-install(FILES xacro/meshes/foot.stl DESTINATION "${MESHES_DESTINATION}")
-GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DIR}/xacro/foot.xacro")
-# panda robot with a suction cup "pump" as end-effector
-# GENERATE_ROBOT("..." "panda_pump") 
-# two panda robots without any end-effector
 configure_file("xacro/main.xacro" "${CMAKE_BINARY_DIR}/xacro/main.xacro" @ONLY)
 configure_file("xacro/main.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/main.gazebo.xacro" @ONLY)
 configure_file("xacro/pandaA_arm.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaA_arm.xacro" @ONLY)
 configure_file("xacro/pandaA_arm.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaA_arm.gazebo.xacro" @ONLY)
 configure_file("xacro/pandaB_arm.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.xacro" @ONLY)
 configure_file("xacro/pandaB_arm.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.gazebo.xacro" @ONLY)
-GENERATE_ROBOT("xacro/doublepanda_arm_default.urdf.xacro" "doublepanda_default" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.xacro")
+configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
+install(FILES xacro/meshes/foot.stl DESTINATION "${MESHES_DESTINATION}")
+
+# panda robot without any end-effector
+#GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm.urdf.xacro" "panda_default")
+GENERATE_ROBOT("xacro/panda_arm_default.urdf.xacro" "panda_default")
+# panda robot with a two-finger gripper "hand" as end-effector
+#GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda_hand")
+GENERATE_ROBOT("xacro/panda_arm_hand.urdf.xacro" "panda_hand")
+# panda robot with a flat "foot" as end-effector
+GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot") # "${CMAKE_BINARY_DIR}/xacro/foot.xacro"
+# panda robot with a suction cup "pump" as end-effector
+# GENERATE_ROBOT("xacro/panda_arm_pump.urdf.xacro" "panda_pump") 
+# two panda robots without any end-effector
+GENERATE_ROBOT("xacro/doublepanda_arm_default.urdf.xacro" "doublepanda_default")
 
 # Install convex
 
