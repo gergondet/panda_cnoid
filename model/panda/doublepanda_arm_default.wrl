@@ -156,7 +156,7 @@ DEF main_link Humanoid {
               rotation 0 1 0 0
               children [
                 Inline {
-                  url "panda-main_link-panda-main_link_fixed_joint_lump__panda_linkA0_visual.wrl"
+                  url "panda-panda_link0-panda-panda_link0_visual.wrl"
                 }
               ]
             }
@@ -166,7 +166,7 @@ DEF main_link Humanoid {
               rotation 0 1 0 0
               children [
                 Inline {
-                  url "panda-main_link-panda-main_link_fixed_joint_lump__panda_linkB0_visual_1.wrl"
+                  url "panda-panda_link0-panda-panda_link0_visual.wrl"
                 }
               ]
             }
