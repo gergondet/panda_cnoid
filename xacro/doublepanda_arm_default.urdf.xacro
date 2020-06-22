@@ -1,15 +1,20 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
 
-	<xacro:arg name="gazebo" default="true"/>
-	
-  <xacro:include filename="$(find franka_gazebo)/robots/panda_arm.xacro" >
-  	<xacro:arg name="gazebo" value="${gazebo}"/>
+  <xacro:arg name="gazebo" default="true"/>
+
+  <xacro:include filename="main.xacro">
+    <xacro:arg name="gazebo" value="${gazebo}"/>
   </xacro:include>
-  <xacro:include filename="@CMAKE_BINARY_DIR@/xacro/panda_armB.xacro" >
-  	<xacro:arg name="gazebo" value="${gazebo}"/>
+  <xacro:include filename="pandaA_arm.xacro">
+    <xacro:arg name="gazebo" value="${gazebo}"/>
+  </xacro:include>
+  <xacro:include filename="pandaB_arm.xacro">
+    <xacro:arg name="gazebo" value="${gazebo}"/>
   </xacro:include>
 
-  <xacro:panda_arm connected_to='world'/>
-  <xacro:panda_armB xyz="0.0 1 0" connected_to='panda_link8'/>
+  <xacro:main connected_to='world'/>
+  <xacro:panda_armA xyz="0 +1 0" connected_to='main_link'/>
+  <xacro:panda_armB xyz="0 -1 0" connected_to='main_link'/>
 </robot>
+

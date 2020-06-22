@@ -75,7 +75,12 @@ GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DI
 # panda robot with a suction cup "pump" as end-effector
 # GENERATE_ROBOT("..." "panda_pump") 
 # two panda robots without any end-effector
-configure_file("xacro/panda_armB.xacro" "${CMAKE_BINARY_DIR}/xacro/panda_armB.xacro" @ONLY)
+configure_file("xacro/main.xacro" "${CMAKE_BINARY_DIR}/xacro/main.xacro" @ONLY)
+configure_file("xacro/main.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/main.gazebo.xacro" @ONLY)
+configure_file("xacro/pandaA_arm.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaA_arm.xacro" @ONLY)
+configure_file("xacro/pandaA_arm.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaA_arm.gazebo.xacro" @ONLY)
+configure_file("xacro/pandaB_arm.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.xacro" @ONLY)
+configure_file("xacro/pandaB_arm.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.gazebo.xacro" @ONLY)
 GENERATE_ROBOT("xacro/doublepanda_arm_default.urdf.xacro" "doublepanda_default" "${CMAKE_BINARY_DIR}/xacro/panda_armB.xacro")
 
 # Install convex
@@ -86,8 +91,10 @@ install(DIRECTORY convex DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTER
 
 install(DIRECTORY rsdf DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*.rsdf")
 
-if(choreonoid_FOUND)
-  install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
+if(choreonoid_FOUND) #TODO we need Virtual-panda-RTC for single robot and multi-robot
+  #install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
+  #install(FILES "cnoid/panda_default/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
+  install(FILES "cnoid/doublepanda_default/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
 endif()
 
 macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
@@ -98,13 +105,14 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(USE_UDP False)
   set(SIM_SCRIPT sim_mc.py)
   set(ROBOT_NAME "${PROJECT_FOLDER}")
-  set(SENSOR_PORT "LeftHandForceSensor")
+  set(SENSOR_PORT_A "LeftHandForceSensor")
+  set(SENSOR_PORT_B "RightHandForceSensor")
   set(PROJECT_FILES
     cnoid/common/clear-omninames.sh
     cnoid/common/robot.conf
     cnoid/common/rtc.conf.choreonoid
     cnoid/common/sim_mc.cnoid
-    cnoid/common/sim_mc.py
+    cnoid/${PROJECT_FOLDER}/sim_mc.py
     cnoid/${PROJECT_FOLDER}/PDcontroller.conf.choreonoid
     cnoid/${PROJECT_FOLDER}/PDgains_sim.dat
   )
@@ -115,7 +123,7 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(USE_UDP True)
   set(SIM_SCRIPT sim_mc_udp.py)
   set(SENSOR_PORT "lhsensor")
-  configure_file(cnoid/common/sim_mc.py "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/${SIM_SCRIPT}" @ONLY)
+  configure_file(cnoid/${PROJECT_FOLDER}/sim_mc.py "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/${SIM_SCRIPT}" @ONLY)
   configure_file(cnoid/common/sim_mc.cnoid "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/sim_mc_udp.cnoid" @ONLY)
   install(DIRECTORY "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/" DESTINATION "${PROJECT_DESTINATION}")
   install(PROGRAMS cnoid/common/clear-omninames.sh DESTINATION "${PROJECT_DESTINATION}")

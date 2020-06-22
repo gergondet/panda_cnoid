@@ -1,5 +1,5 @@
 path: "@URDF_DESTINATION@"
-name: panda_default
+name: doublepanda_default
 urdf_path: "@URDF_DESTINATION@/panda_arm.urdf"
 fixed: true
 stance:
@@ -93,7 +93,7 @@ minimalSelfCollisions:
     damping: 0
 forceSensors:
   - name: LeftHandForceSensor
-    parentBody: panda_link8
+    parentBody: panda_linkA8
     X_p_f:
       rotation: [0.0, 0.0, 0.0]
       translation: [0.0, 0.0, 0.0]
