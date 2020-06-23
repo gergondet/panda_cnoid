@@ -64,16 +64,27 @@ macro(GENERATE_ROBOT XACRO_IN ROBOT_IN)
   install(FILES "${ALIASE_OUT}" DESTINATION "${MC_ROBOTS_ALIASES_DIRECTORY}")
 endmacro()
 
-# panda robot without any end-effector
-GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm.urdf.xacro" "panda_default")
-# panda robot with a two-finger gripper "hand" as end-effector
-GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda_hand")
-# panda robot with a flat "foot" as end-effector
+configure_file("xacro/main.xacro" "${CMAKE_BINARY_DIR}/xacro/main.xacro" @ONLY)
+configure_file("xacro/main.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/main.gazebo.xacro" @ONLY)
+configure_file("xacro/pandaA_arm.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaA_arm.xacro" @ONLY)
+configure_file("xacro/pandaA_arm.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaA_arm.gazebo.xacro" @ONLY)
+configure_file("xacro/pandaB_arm.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.xacro" @ONLY)
+configure_file("xacro/pandaB_arm.gazebo.xacro" "${CMAKE_BINARY_DIR}/xacro/pandaB_arm.gazebo.xacro" @ONLY)
 configure_file("xacro/foot.xacro" "${CMAKE_BINARY_DIR}/xacro/foot.xacro" @ONLY)
 install(FILES xacro/meshes/foot.stl DESTINATION "${MESHES_DESTINATION}")
-GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot" "${CMAKE_BINARY_DIR}/xacro/foot.xacro")
+
+# panda robot without any end-effector
+#GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm.urdf.xacro" "panda_default")
+GENERATE_ROBOT("xacro/panda_arm_default.urdf.xacro" "panda_default")
+# panda robot with a two-finger gripper "hand" as end-effector
+#GENERATE_ROBOT("${FRANKA_GAZEBO_PATH}/robots/panda_arm_hand.urdf.xacro" "panda_hand")
+GENERATE_ROBOT("xacro/panda_arm_hand.urdf.xacro" "panda_hand")
+# panda robot with a flat "foot" as end-effector
+GENERATE_ROBOT("xacro/panda_arm_foot.urdf.xacro" "panda_foot") # "${CMAKE_BINARY_DIR}/xacro/foot.xacro"
 # panda robot with a suction cup "pump" as end-effector
-# GENERATE_ROBOT("..." "panda_pump") 
+# GENERATE_ROBOT("xacro/panda_arm_pump.urdf.xacro" "panda_pump") 
+# two panda robots without any end-effector
+GENERATE_ROBOT("xacro/doublepanda_arm_default.urdf.xacro" "doublepanda_default")
 
 # Install convex
 
@@ -83,10 +94,6 @@ install(DIRECTORY convex DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTER
 
 install(DIRECTORY rsdf DESTINATION "${URDF_DESTINATION}" FILES_MATCHING PATTERN "*.rsdf")
 
-if(choreonoid_FOUND)
-  install(FILES "cnoid/common/Virtual-panda-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
-endif()
-
 macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(PROJECT_DESTINATION "${HRPSYS_BASE_PREFIX}/share/hrpsys/samples/${PROJECT_FOLDER}")
   set(MODEL_OUT "${MODEL_DESTINATION}/${WRL_NAME}.wrl")
@@ -95,13 +102,16 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(USE_UDP False)
   set(SIM_SCRIPT sim_mc.py)
   set(ROBOT_NAME "${PROJECT_FOLDER}")
-  set(SENSOR_PORT "LeftHandForceSensor")
+  set(SENSOR_PORT_A "LeftHandForceSensor")
+  set(SENSOR_PORT_B "RightHandForceSensor")
+  set(CONF_FILE_NAME "Virtual-${PROJECT_FOLDER}-RTC.conf")
+  install(FILES "cnoid/${PROJECT_FOLDER}/Virtual-${PROJECT_FOLDER}-RTC.conf" DESTINATION "${CHOREONOID_PLUGIN_DIR}/rtc/")
   set(PROJECT_FILES
     cnoid/common/clear-omninames.sh
     cnoid/common/robot.conf
     cnoid/common/rtc.conf.choreonoid
     cnoid/common/sim_mc.cnoid
-    cnoid/common/sim_mc.py
+    cnoid/${PROJECT_FOLDER}/sim_mc.py
     cnoid/${PROJECT_FOLDER}/PDcontroller.conf.choreonoid
     cnoid/${PROJECT_FOLDER}/PDgains_sim.dat
   )
@@ -112,7 +122,7 @@ macro(GENERATE_CNOID_PROJECT PROJECT_FOLDER WRL_NAME)
   set(USE_UDP True)
   set(SIM_SCRIPT sim_mc_udp.py)
   set(SENSOR_PORT "lhsensor")
-  configure_file(cnoid/common/sim_mc.py "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/${SIM_SCRIPT}" @ONLY)
+  configure_file(cnoid/${PROJECT_FOLDER}/sim_mc.py "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/${SIM_SCRIPT}" @ONLY)
   configure_file(cnoid/common/sim_mc.cnoid "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/sim_mc_udp.cnoid" @ONLY)
   install(DIRECTORY "${CMAKE_BINARY_DIR}/cnoid/${PROJECT_FOLDER}/" DESTINATION "${PROJECT_DESTINATION}")
   install(PROGRAMS cnoid/common/clear-omninames.sh DESTINATION "${PROJECT_DESTINATION}")
@@ -123,4 +133,5 @@ if(choreonoid_FOUND)
   GENERATE_CNOID_PROJECT(panda_hand panda_arm_hand)
   GENERATE_CNOID_PROJECT(panda_foot panda_arm_foot)
   #GENERATE_CNOID_PROJECT(panda_pump panda_arm_pump)
+  GENERATE_CNOID_PROJECT(doublepanda_default doublepanda_arm_default)
 endif()

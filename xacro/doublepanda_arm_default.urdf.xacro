@@ -9,10 +9,12 @@
   <xacro:include filename="@CMAKE_BINARY_DIR@/xacro/pandaA_arm.xacro">
     <xacro:arg name="gazebo" value="${gazebo}"/>
   </xacro:include>
-  <xacro:include filename="@CMAKE_BINARY_DIR@/xacro/foot.xacro"/>
+  <xacro:include filename="@CMAKE_BINARY_DIR@/xacro/pandaB_arm.xacro">
+    <xacro:arg name="gazebo" value="${gazebo}"/>
+  </xacro:include>
 
   <xacro:main connected_to='world'/>
-  <xacro:panda_armA xyz="0 0 0" connected_to='main_link'/>
-  <xacro:foot ns="panda" rpy="0 0 ${-pi/4}" connected_to="panda_linkA8"/>
+  <xacro:panda_armA xyz="0 +1 0" connected_to='main_link'/>
+  <xacro:panda_armB xyz="0 -1 0" connected_to='main_link'/>
 </robot>
 

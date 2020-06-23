@@ -96,7 +96,7 @@ items:
                 isNoDelayMode: true
                 controllerOptions: ""
                 moduleName: "PDcontroller"
-                confFileName: "Virtual-panda-RTC.conf"
+                confFileName: "@CONF_FILE_NAME@"
                 configurationMode: "Use Configuration File"
                 autoConnect: true
                 instanceName: "pandaController(Robot)0"

@@ -1,0 +1,1 @@
+doublepanda_default: [json, "@URDF_DESTINATION@/doublepanda_default.yaml"]

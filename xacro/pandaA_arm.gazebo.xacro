@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pandaA">
+<!--
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+-->  
+	<gazebo reference="${arm_id}_linkA0"/>
+	<gazebo reference="${arm_id}_linkA1"/>
+	<gazebo reference="${arm_id}_linkA2"/>
+	<gazebo reference="${arm_id}_linkA3"/>
+	<gazebo reference="${arm_id}_linkA4"/>
+	<gazebo reference="${arm_id}_linkA5"/>
+	<gazebo reference="${arm_id}_linkA6"/>
+	<gazebo reference="${arm_id}_linkA7"/>
+	<gazebo reference="${arm_id}_linkA8"/>
+
+	 <transmission name="${arm_id}_jointA1_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${arm_id}_jointA1">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${arm_id}_jointA1_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="${arm_id}_jointA2_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${arm_id}_jointA2">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${arm_id}_jointA2_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="${arm_id}_jointA3_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${arm_id}_jointA3">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${arm_id}_jointA3_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="${arm_id}_jointA4_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${arm_id}_jointA4">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${arm_id}_jointA4_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="${arm_id}_jointA5_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${arm_id}_jointA5">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${arm_id}_jointA5_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="${arm_id}_jointA6_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${arm_id}_jointA6">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${arm_id}_jointA6_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="${arm_id}_jointA7_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${arm_id}_jointA7">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${arm_id}_jointA7_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>
